@@ -16,22 +16,39 @@ export default class App extends Component {
       materialConsumption: 1.7,
       averageMaterialEating: 1.49,
       volumeCoefofWarmReturning: 2450,
-      agregateDiametr: 2.1
+      agregateDiametr: 2.1,
+      data: null
     }
   
     onChandgeHandler = (e) => {
-      console.log(!isNaN(e.target.value));
-      if(!isNaN(e.target.value)){
+      const value = e.target.value
+      if(!isNaN(value) || value){
         this.setState({
-          [e.target.name]:  e.target.value
+          [e.target.name]: +value
         })
       }
+      console.log(this.state);
     }
 
     getRequest = async () => {
-      this._buttun.disabled = true;
-      const fetchData = await fetchDailyData(this.state);
-      this.setState({data:fetchData})
+      let flag = true;
+      Object.values(this.state).forEach(item => {
+        if (!item && item !== null) flag = false
+      })
+
+      if (flag) {
+        this._buttun.disabled = true;
+        const fetchData = await fetchDailyData(this.state); 
+        this.setState({data:fetchData})
+      } else{
+        alert('Нулевые значения недопустимы');
+      }
+
+    }
+
+    reset = () => {
+      this._buttun.disabled = false;
+      this.setState({data:null});
     }
 
   
@@ -39,7 +56,7 @@ export default class App extends Component {
     return (
       <> 
       <div className='wrapper'>
-        <Inputs 
+        <Inputs
         onChandgeHandler={this.onChandgeHandler} 
         layerHeight={this.state.layerHeight} 
         startTemperatyreMaterial={this.state.startTemperatyreMaterial}
@@ -56,7 +73,9 @@ export default class App extends Component {
       </div>
       <div className='wrapper wrapper-results'>
         <Results data={this.state.data} />
+        {this.state.data ? <input type="button" className='fetchButton' value='Попробовать ещё' onClick={(e) => this.reset()} /> : null}
       </div>
+      
       </>
     );
   }

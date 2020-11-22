@@ -21,7 +21,6 @@ namespace OTMS_2
         public List<double> line6 { get; set; }
         public List<double> line7 { get; set; }
         public List<double> line8 { get; set; }
-        //public List<double> line6 { get; set; }
 
     }
 }

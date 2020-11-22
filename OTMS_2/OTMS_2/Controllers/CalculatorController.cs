@@ -11,32 +11,11 @@ namespace OTMS_2.Controllers
     [ApiController]
     public class CalculatorController : ControllerBase
     {
-        // GET: api/Calculator/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(string part)
-        {
-            return "пер45";
-        }
-
         [HttpPost]
         public ReturnParams Post(InputsParams IP)
         {
             ReturnParams result = CalculateParams.firstStage(IP);
             return result;
-        }
-
-        // PUT: api/Calculator/5
-        [HttpPut]
-        public string Put([FromBody] string value)
-        {
-
-            return value;
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

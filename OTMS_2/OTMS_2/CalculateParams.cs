@@ -7,7 +7,6 @@ namespace OTMS_2
 {
     public class CalculateParams
     {
-        
         static public ReturnParams firstStage(InputsParams IP)
         {
             ReturnParams rp = new ReturnParams();
